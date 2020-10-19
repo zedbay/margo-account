@@ -4,8 +4,7 @@ public class AccountRequestModel {
 
     public Float amount;
 
-    public AccountRequestModel(Float amount) {
-        this.amount = amount;
+    public AccountRequestModel() {
     }
 
 }

@@ -14,12 +14,13 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AccountController {
+
+    private final UsersManager usersManager = UsersManager.getInstance();
     
     @GetMapping(value="/account/history")
     public ArrayList<Statement> getHistoryHandler(@RequestHeader("userId") Integer userId) {
         try  {
-            UsersManager usersManager = UsersManager.getInstance();
-            User user = usersManager.findUser(userId);
+            User user = this.usersManager.findUser(userId);
             return user.getAccount().getHistory();
         } catch (UnknownUserException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found", e);
@@ -29,10 +30,8 @@ public class AccountController {
     @PutMapping(value="/account/deposit")
     public Statement depositHandler(@RequestHeader("userId") Integer userId, @RequestBody AccountRequestModel accountRequest) {
         try  {
-            UsersManager usersManager = UsersManager.getInstance();
-            User user = usersManager.findUser(userId);
-            Statement statement = user.getAccount().deposit(accountRequest.amount);
-            return statement;
+            User user = this.usersManager.findUser(userId);
+            return user.getAccount().deposit(accountRequest.amount);
         } catch (UnknownUserException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found", e);
         }
@@ -41,10 +40,8 @@ public class AccountController {
     @PutMapping(value="/account/withdrawal")
     public Statement withdrawal(@RequestHeader("userId") Integer userId, @RequestBody AccountRequestModel accountRequest) {
         try  {
-            UsersManager usersManager = UsersManager.getInstance();
-            User user = usersManager.findUser(userId);
-            Statement statement = user.getAccount().withdrawal(accountRequest.amount);
-            return statement;
+            User user = this.usersManager.findUser(userId);
+            return user.getAccount().withdrawal(accountRequest.amount);
         } catch (UnknownUserException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found", e);
         } catch (AccountNotEnoughProvisioned e) {

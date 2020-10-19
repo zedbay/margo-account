@@ -9,7 +9,7 @@ import java.util.Date;
 public class Account {
 
     private Float balance = (float) 0;
-    private ArrayList<Statement> history = new ArrayList<>();
+    private final ArrayList<Statement> history = new ArrayList<>();
 
     public Statement withdrawal(Float amount) throws AccountNotEnoughProvisioned {
         if (this.balance - amount < 0) {
