@@ -10,10 +10,10 @@ public class UsersManager {
         return UsersManager.INSTANCE;
     }
 
-    private ArrayList<User> users = new ArrayList<User>();
+    private final ArrayList<User> users = new ArrayList<>();
 
     private UsersManager(User[] users) {
-        Arrays.stream(users).forEach(user -> this.users.add(user));
+        this.users.addAll(Arrays.asList(users));
     }
 
     public void addUser(User user) {

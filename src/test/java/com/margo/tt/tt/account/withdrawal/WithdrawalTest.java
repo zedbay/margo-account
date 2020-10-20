@@ -5,7 +5,10 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/withdrawal.feature", plugin = { "pretty", "html:target/report"})
+@CucumberOptions(
+        features = "src/test/resources/withdrawal.feature",
+        plugin = { "pretty", "html:target/report"}
+        )
 public class WithdrawalTest {
 
 }

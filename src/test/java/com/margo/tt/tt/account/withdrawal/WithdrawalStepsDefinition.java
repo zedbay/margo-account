@@ -6,17 +6,13 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.spring.CucumberContextConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@CucumberContextConfiguration
-@SpringBootTest
 public class WithdrawalStepsDefinition {
 
-    private User user = new User();
+    private final User user = new User();
     private Exception exception;
 
     @Given("^Un utilisateur possède un compte avec comme solde (\\d+)€$")

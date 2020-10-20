@@ -5,8 +5,8 @@ import com.margo.tt.tt.account.Account;
 public class User {
 
     private static Integer idCounter = 0;
-    private Account account = new Account();
-    private Integer id;
+    private final Account account = new Account();
+    private final Integer id;
 
     public User() {
         this.id = User.idCounter++;

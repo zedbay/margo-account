@@ -13,11 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 public class DepositStepsDefinition {
 
-    private User user = new User();
+    private User user;
 
     @Given("^Un utilisateur possède un compte avec comme solde (\\d+)€$")
-    public void clientHasAnAccount(Float currentBalance) throws Exception {
-        assertEquals(currentBalance, this.user.getAccount().getBalance());
+    public void clientHasAnAccount(Float initialBalance) throws Exception {
+        this.user = new User();
+        this.user.getAccount().deposit(initialBalance);
     }
 
     @When("^Un utilisateur fait un depot de (\\d+)€$")

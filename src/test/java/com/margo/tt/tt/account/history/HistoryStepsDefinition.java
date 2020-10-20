@@ -4,6 +4,7 @@ import com.margo.tt.tt.OperationType;
 import com.margo.tt.tt.account.AccountNotEnoughProvisioned;
 import com.margo.tt.tt.statement.Statement;
 import com.margo.tt.tt.user.User;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,18 +12,17 @@ import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @CucumberContextConfiguration
 @SpringBootTest
 public class HistoryStepsDefinition {
 
-    private User user = new User();
-    private Exception exception;
+    private User user;
+    private AccountNotEnoughProvisioned exception;
 
     @Given("^Un utilisateur possède un compte$")
     public void userHasAccountWithThisBalance() {
-        assertNotNull(this.user.getAccount());
+        this.user = new User();
     }
 
     @When("^Un utilisateur fait un depot de (\\d+)€$")
@@ -34,18 +34,6 @@ public class HistoryStepsDefinition {
     public void userMakeASuccessfulWithdrawal(Float amountToWithdrawal) throws AccountNotEnoughProvisioned {
         this.user.getAccount().deposit(amountToWithdrawal + 10);
         this.user.getAccount().withdrawal(amountToWithdrawal);
-    }
-
-    @When("^Un utilisateur fait un retrait de qui est refusé$")
-    public void userMakeARefusedWithdrawal() {
-        try {
-            this.user.getAccount().withdrawal(
-                    this.user.getAccount().getBalance() + 1
-            );
-        } catch (AccountNotEnoughProvisioned e) {
-            this.exception = e;
-        }
-        assertNotNull(this.exception);
     }
 
     @Then("^Le dernier releve est de type depot$")
